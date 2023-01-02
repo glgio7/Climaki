@@ -45,8 +45,8 @@ const fetchWeather = () => {
     setWeather(weather);
   })
 }
-const fetchForecast = () => {
-  fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`)
+const fetchForecast =  () => {
+   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`)
   .then((response) => response.json())
   .then((data) => {
     // 5day WEATHER 

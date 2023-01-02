@@ -39,17 +39,16 @@ function Live() {
         setWeather(weather);
       })
     }
+    // 5day WEATHER 
     const fetchForecast = () => {
-      fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
       .then((response) => response.json())
       .then((data) => {
-        // 5day WEATHER 
         const arr = data.list;
         setForecast(arr);
       }
       )
-};
-Promise.all([fetchWeather(), fetchForecast()])
+}; Promise.all([fetchWeather(), fetchForecast()])
   }, [id])
   
   return (
