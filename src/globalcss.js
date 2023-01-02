@@ -9,6 +9,8 @@ export const GlobalCSS = createGlobalStyle`
     list-style: none;
     border: none;
     outline: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
 }
 
 body{
@@ -16,5 +18,12 @@ body{
     max-width: 100vw;
     height: 100%;
     background-color: cornflowerblue;
+    background-image: url("../assets/nature.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    
 }
+    a{color: #fff;}
 `

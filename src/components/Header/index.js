@@ -1,13 +1,27 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledHeader = styled.header`
-    background-color: rgba(0,0,0, .5);
+    background-color: rgb(30,100,230);
     width: 100%;
-    height: 84px;
+    height: 72px;
     display: flex;
     padding: 0 2rem;
     align-items: center;
-
+    position: relative;
+    z-index: 5;
+    
+    .background-header{
+        display: block;
+        position: absolute;
+        z-index: -1;
+        opacity: .25;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    
     h1{
         display: inline-flex;
         align-items: center;
@@ -16,6 +30,7 @@ const StyledHeader = styled.header`
     img{
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
     
     .logo{
@@ -32,13 +47,15 @@ const StyledHeader = styled.header`
     }
 `
 
-export default function Header() {
+export default function Header({ clearLocation }) {
     return (
         <StyledHeader>
-            <h1>
-            <img src="../../../assets/forecast_logo.png" alt="Weather Forecast" className="logo"/>
-            <p>CLIMAKI</p>
-            </h1>
+            <div className="background-header"><img src="../assets/unsplash3.png" alt="" /></div>
+            <Link to="/" onClick={clearLocation}>
+                <h1>
+                    <img src="../../../assets/forecast_logo.png" alt="Weather Forecast" className="logo" />
+                    <p>CLIMAKI</p>
+                </h1></Link>
         </StyledHeader>
     )
 }
