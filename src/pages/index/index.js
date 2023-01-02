@@ -57,7 +57,7 @@ function Home() {
         setForecast(arr)
       }
       )
-  }, [weather])
+  }, [weather.customId])
   return (
     <>
       <Header clearLocation={clearLocation} />

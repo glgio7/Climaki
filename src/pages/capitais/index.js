@@ -39,7 +39,7 @@ function Live() {
         setWeather(weather);
       }
       )
-  }, [id])
+  }, [findById])
 
   useEffect(() => {
     fetch(`${weekly}`)
@@ -50,8 +50,7 @@ function Live() {
         setForecast(arr)
       }
       )
-  }, [])
-  console.log(forecast)
+  }, [weekly])
   return (
     <>
       <Header />
