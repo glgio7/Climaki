@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
+  min-height: 100vh;
   position: relative;
   margin: 0 auto;
   padding-top: 1rem;
@@ -170,7 +171,7 @@ export const Container = styled.main`
   }
 
   .container-semanal.active{
-    height: 5550px;
+    height: calc(100vh - 180px);
   }
 
   .ul-semanal{
@@ -207,11 +208,7 @@ export const Container = styled.main`
     .container, .container-semanal{
       width: 90%;
     }
-    
-    .container-semanal.active{
-      height: 5000px;
-    }
-    
+
     .ul-semanal{
       flex-wrap: wrap;
       flex-direction: row;

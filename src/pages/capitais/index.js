@@ -60,7 +60,7 @@ function Live() {
         <span className="country">{weather?.country}</span>
         <div className="container">
           <h2>Agora</h2>
-          <img className="weather-icon" src={`http://openweathermap.org/img/w/${weather.icon}.png`} alt={weather.status} />
+          <img className="weather-icon" src={`https://openweathermap.org/img/w/${weather.icon}.png`} alt={weather.status} />
           <h3>{weather?.description}</h3>
           <ul className="info-temp">
             <li>
@@ -95,7 +95,7 @@ function Live() {
           {expandWeekly === true && forecast.map(item => (
             <ul className="ul-semanal" key={forecast.indexOf(item)}>
               <li>
-                <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
+                <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
                 <h5>{item.weather[0].description}</h5>
                 <h3>{`${new Date(item.dt * 1000).getHours()}:00`}</h3>
               </li>

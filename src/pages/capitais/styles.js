@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-position: relative;
+  min-height: 100vh;
+  position: relative;
   margin: 0 auto;
   padding-top: 1rem;
   display: flex;
@@ -135,7 +136,7 @@ position: relative;
   }
 
   .container-semanal.active{
-    height: 5550px;
+    height: calc(100vh - 153px)
   }
 
   .ul-semanal{
@@ -167,10 +168,6 @@ position: relative;
   @media screen and (max-width: 900px){
     .container, .container-semanal{
       width: 90%;
-    }
-    
-    .container-semanal.active{
-      height: 5000px;
     }
     
     .ul-semanal{
