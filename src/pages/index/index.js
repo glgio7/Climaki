@@ -18,6 +18,7 @@ function Home() {
   const [forecast, setForecast] = useState([]);
   const [expandWeekly, setExpandWeekly] = useState(false);
   const daysNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  let weeklyId = '';
   ////////////////////////////
 
 
@@ -28,7 +29,7 @@ function Home() {
       .then((data) => {
         // CURRENT WEATHER 
         const weather = {
-          customId: data.id,
+          id: data.id,
           city: data.name,
           country: data.sys?.country,
           sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
@@ -44,20 +45,22 @@ function Home() {
           icon: data.weather ? data.weather[0].icon : '',
         }
         setWeather(weather);
-        // console.log(weather)
       }
       )
-  }, [customLocation])
-  useEffect(() => {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${weather.customId}&appid=${api_key}&units=metric&lang=pt_br`)
+    }, [customLocation])
+    weeklyId = weather.id
+
+    useEffect(() => {
+    setTimeout(() => {
+      fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${weeklyId}&appid=${api_key}&units=metric&lang=pt_br`)
       .then((response) => response.json())
       .then((data) => {
         // 5day WEATHER 
         const arr = data.list;
         setForecast(arr)
       }
-      )
-  }, [weather.customId])
+      )}, 1000);
+  }, [weeklyId])
   return (
     <>
       <Header clearLocation={clearLocation} />

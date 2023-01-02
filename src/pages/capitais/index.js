@@ -14,9 +14,9 @@ function Live() {
   const [weather, setWeather] = useState([])
   const findById = `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${api_key}&units=metric&lang=pt_br`
   const [forecast, setForecast] = useState([])
-  const weekly = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${api_key}&units=metric&lang=pt_br`;
   const [expandWeekly, setExpandWeekly] = useState(false);
   const daysNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  let weeklyId = '';
 
   useEffect(() => {
     fetch(`${findById}`)
@@ -35,22 +35,25 @@ function Live() {
           status: data.weather ? data.weather[0].main : '',
           description: data.weather ? data.weather[0].description : '',
           icon: data.weather ? data.weather[0].icon : '',
+          id: data.id
         }
         setWeather(weather);
       }
       )
-  }, [findById])
-
-  useEffect(() => {
-    fetch(`${weekly}`)
+    }, [findById])
+    
+    weeklyId = weather.id
+    useEffect(() => {
+    setTimeout(() => {
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${weeklyId}&appid=${api_key}&units=metric&lang=pt_br`)
       .then((response) => response.json())
       .then((data) => {
         // 5day WEATHER 
         const arr = data.list;
         setForecast(arr)
       }
-      )
-  }, [weekly])
+      )}, 1000);
+    }, [weeklyId])
   return (
     <>
       <Header />
