@@ -18,50 +18,46 @@ function Home() {
   const [forecast, setForecast] = useState([]);
   const [expandWeekly, setExpandWeekly] = useState(false);
   const daysNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-  let weeklyId = '';
   ////////////////////////////
 
 
 
   useEffect(() => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`)
-      .then((response) => response.json())
-      .then((data) => {
-        // CURRENT WEATHER 
-        const weather = {
-          id: data.id,
-          city: data.name,
-          country: data.sys?.country,
-          sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
-          sunriseMinutes: new Date(data.sys?.sunrise * 1000).getMinutes(),
-          sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
-          sunsetMinutes: new Date(data.sys?.sunset * 1000).getMinutes(),
-          temp: Math.round(data.main?.temp),
-          minTemp: Math.round(data.main?.temp_min),
-          maxTemp: Math.round(data.main?.temp_max),
-          feels_like: Math.round(data.main?.feels_like),
-          status: data.weather ? data.weather[0].main : '',
-          description: data.weather ? data.weather[0].description : '',
-          icon: data.weather ? data.weather[0].icon : '',
-        }
-        setWeather(weather);
-      }
-      )
-    }, [customLocation])
-    weeklyId = weather.id
-
-    useEffect(() => {
-    setTimeout(() => {
-      fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${weeklyId}&appid=${api_key}&units=metric&lang=pt_br`)
-      .then((response) => response.json())
-      .then((data) => {
-        // 5day WEATHER 
-        const arr = data.list;
-        setForecast(arr)
-      }
-      )}, 1000);
-  }, [weeklyId])
-  return (
+    // CURRENT WEATHER 
+const fetchWeather = () => {
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`)
+        .then((response) => response.json())
+        .then((data) => {
+    const weather = {
+      city: data?.name,
+      country: data.sys?.country,
+      sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
+      sunriseMinutes: new Date(data.sys?.sunrise * 1000).getMinutes(),
+      sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
+      sunsetMinutes: new Date(data.sys?.sunset * 1000).getMinutes(),
+      temp: Math.round(data.main?.temp),
+      feels_like: Math.round(data.main?.feels_like),
+      status: data.weather ? data.weather[0].main : '',
+      description: data.weather ? data.weather[0].description : '',
+      icon: data.weather ? data.weather[0].icon : '',
+      id: data.id
+    }
+    setWeather(weather);
+  })
+}
+const fetchForecast = () => {
+  fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`)
+  .then((response) => response.json())
+  .then((data) => {
+    // 5day WEATHER 
+    const arr = data.list;
+    setForecast(arr);
+  }
+  )
+};
+Promise.all([fetchWeather(), fetchForecast()])
+}, [customLocation])
+return (
     <>
       <Header clearLocation={clearLocation} />
       <Subtitle />
@@ -115,7 +111,7 @@ function Home() {
               </div>
               <div className={expandWeekly ? "container-semanal active" : 'container-semanal'} >
                 {expandWeekly === true && forecast.map(item => (
-                  <ul className="ul-semanal">
+                  <ul className="ul-semanal" key={forecast.indexOf(item)}>
                     <li>
                       <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
                       <h5>{item.weather[0].description}</h5>

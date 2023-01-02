@@ -11,18 +11,17 @@ import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 function Live() {
   const api_key = '7b9f700d5f985dd21792000657bd66d0';
   const { id } = useParams()
-  const [weather, setWeather] = useState([])
-  const findById = `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${api_key}&units=metric&lang=pt_br`
+  const [weather, setWeather] = useState([]);
   const [forecast, setForecast] = useState([])
   const [expandWeekly, setExpandWeekly] = useState(false);
   const daysNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-  let weeklyId = '';
 
   useEffect(() => {
-    fetch(`${findById}`)
-      .then((response) => response.json())
-      .then((data) => {
         // CURRENT WEATHER 
+    const fetchWeather = () => {
+          fetch(`https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
+            .then((response) => response.json())
+            .then((data) => {
         const weather = {
           city: data?.name,
           country: data.sys?.country,
@@ -38,22 +37,21 @@ function Live() {
           id: data.id
         }
         setWeather(weather);
-      }
-      )
-    }, [findById])
-    
-    weeklyId = weather.id
-    useEffect(() => {
-    setTimeout(() => {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${weeklyId}&appid=${api_key}&units=metric&lang=pt_br`)
+      })
+    }
+    const fetchForecast = () => {
+      fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
       .then((response) => response.json())
       .then((data) => {
         // 5day WEATHER 
         const arr = data.list;
-        setForecast(arr)
+        setForecast(arr);
       }
-      )}, 1000);
-    }, [weeklyId])
+      )
+};
+Promise.all([fetchWeather(), fetchForecast()])
+  }, [id])
+  
   return (
     <>
       <Header />
@@ -96,7 +94,7 @@ function Live() {
         {/* /////////////////////////////////////////////////SEMANAL */}
         <div className={expandWeekly ? "container-semanal active" : 'container-semanal'} >
           {expandWeekly === true && forecast.map(item => (
-            <ul className="ul-semanal">
+            <ul className="ul-semanal" key={forecast.indexOf(item)}>
               <li>
                 <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
                 <h5>{item.weather[0].description}</h5>
