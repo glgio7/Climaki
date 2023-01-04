@@ -95,7 +95,7 @@ function Live() {
           {expandWeekly === true && forecast.map(item => (
             <ul className="ul-semanal" key={forecast.indexOf(item)}>
               <li>
-                <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
+                <h3>{daysNames[new Date(item.dt * 1000).getDay()]}<img className="ul-icon" src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
 
                 <h3>{`${new Date(item.dt * 1000).getHours()}:00`}</h3>
               </li>
