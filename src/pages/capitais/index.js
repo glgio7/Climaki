@@ -17,45 +17,45 @@ function Live() {
   const daysNames = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
 
   useEffect(() => {
-        // CURRENT WEATHER 
+    // CURRENT WEATHER 
     const fetchWeather = () => {
-          fetch(`https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
-            .then((response) => response.json())
-            .then((data) => {
-        const weather = {
-          city: data?.name,
-          country: data.sys?.country,
-          sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
-          sunriseMinutes: new Date(data.sys?.sunrise * 1000).getMinutes(),
-          sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
-          sunsetMinutes: new Date(data.sys?.sunset * 1000).getMinutes(),
-          temp: Math.round(data.main?.temp),
-          feels_like: Math.round(data.main?.feels_like),
-          status: data.weather ? data.weather[0].main : '',
-          description: data.weather ? data.weather[0].description : '',
-          icon: data.weather ? data.weather[0].icon : '',
-          id: data.id
-        }
-        setWeather(weather);
-      })
+      fetch(`https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
+        .then((response) => response.json())
+        .then((data) => {
+          const weather = {
+            city: data?.name,
+            country: data.sys?.country,
+            sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
+            sunriseMinutes: new Date(data.sys?.sunrise * 1000).getMinutes(),
+            sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
+            sunsetMinutes: new Date(data.sys?.sunset * 1000).getMinutes(),
+            temp: Math.round(data.main?.temp),
+            feels_like: Math.round(data.main?.feels_like),
+            status: data.weather ? data.weather[0].main : '',
+            description: data.weather ? data.weather[0].description : '',
+            icon: data.weather ? data.weather[0].icon : '',
+            id: data.id
+          }
+          setWeather(weather);
+        })
     }
     // 5day WEATHER 
     const fetchForecast = () => {
       fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${id}&appid=${api_key}&units=metric&lang=pt_br`)
-      .then((response) => response.json())
-      .then((data) => {
-        const arr = data.list;
-        setForecast(arr);
-      }
-      )
-}; Promise.all([fetchWeather(), fetchForecast()])
+        .then((response) => response.json())
+        .then((data) => {
+          const arr = data.list;
+          setForecast(arr);
+        }
+        )
+    }; Promise.all([fetchWeather(), fetchForecast()])
   }, [id])
-  
+
   return (
     <>
       <Header />
       <Container>
-      <RiArrowUpSLine className="button-toTop" onClick={() => window.scrollTo(0,0)}/>
+        <RiArrowUpSLine className="button-toTop" onClick={() => window.scrollTo(0, 0)} />
         <h1>{weather?.city}</h1>
         <span className="country">{weather?.country}</span>
         <div className="container">
@@ -96,8 +96,12 @@ function Live() {
             <ul className="ul-semanal" key={forecast.indexOf(item)}>
               <li>
                 <h3>{daysNames[new Date(item.dt * 1000).getDate() - 1]}<img className="ul-icon" src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt={weather.status} /></h3>
-                <h5>{item.weather[0].description}</h5>
+
                 <h3>{`${new Date(item.dt * 1000).getHours()}:00`}</h3>
+              </li>
+              <li>
+                <h5>{item.weather[0].description}</h5>
+                  <p>{item.rain ? `${item.rain["3h"]} mm` : ''}</p>
               </li>
               <li><h5>Mínima</h5>
                 <p>{`${Math.floor(item.main.temp_min)}° C`}</p>

@@ -108,40 +108,6 @@ export const Container = styled.main`
   margin-block: 2rem;
   }
   
-  .show-week{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .show-icon{
-    font-size: 2rem;
-    margin-inline: .5rem;
-    color: #000;
-    background: rgba(255,255,255, .75);
-    border-radius: 50%;
-    opacity: 0;
-    transition: all 250ms;
-  }
-  
-  @keyframes flash {
-    0%{
-        opacity: 1;
-    }
-    50%{
-        opacity: .5;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-
-  .show-icon.active{
-    animation: flash 1s linear infinite;
-    opacity: 1;
-  }
-
-  
   button{
     cursor: pointer;
     width: 180px;
@@ -169,6 +135,39 @@ export const Container = styled.main`
     width: 80%;
     color: #fff;
   }
+  
+  .show-week{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .show-icon{
+    font-size: 2rem;
+    margin-inline: 1rem;
+    color: #000;
+    background: rgba(255,255,255, .75);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 250ms;
+  }
+
+.show-icon.active{
+  animation: flash 2s linear infinite;
+  opacity: 1;
+}
+  
+  @keyframes flash {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: .25;
+    }
+    100%{
+        opacity: 1;
+    }
+}
 
   .container-semanal.active{
     height: calc(100vh - 180px);
@@ -180,6 +179,7 @@ export const Container = styled.main`
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    border-bottom: 1px solid #000;
   }
 
   .ul-semanal li{
@@ -214,6 +214,7 @@ export const Container = styled.main`
       flex-direction: row;
       justify-content: center;
       padding: 0;
+      border-bottom: 0;
       
     }
     .ul-semanal li{
@@ -226,8 +227,9 @@ export const Container = styled.main`
       align-items: center;
     }
     
-    .ul-semanal li:first-child{
+    .ul-semanal li:nth-child(1), .ul-semanal li:nth-child(2){
       padding: 0 .5rem;
+      margin-block: 1px;
       background-color: rgba(0,0,0, .5);
       display: inline-flex;
       align-items: center;
