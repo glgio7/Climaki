@@ -7,9 +7,9 @@ const StyledHeader = styled.header`
     height: 72px;
     display: flex;
     padding: 0 2rem;
-    align-items: center;
     position: relative;
     z-index: 5;
+    align-items: center;
     
     .background-header{
         display: block;
@@ -23,10 +23,10 @@ const StyledHeader = styled.header`
     }
     
     h1{
-        display: inline-flex;
+        display: flex;
         align-items: center;
     }
-
+    
     img{
         width: 100%;
         height: 100%;
@@ -36,6 +36,11 @@ const StyledHeader = styled.header`
     .logo{
         object-fit: contain;
         width: 66px;
+        opacity: .75;
+        transition: all 250ms;
+        &:hover{
+            opacity: 1;
+        }        
     }
 
     p{
@@ -43,7 +48,15 @@ const StyledHeader = styled.header`
         margin: 0 .5rem;
         font-weight: bold;
         font-size: 2rem;
-        text-shadow: 0px 5px 5px #000;
+        text-shadow: 0px 3px 5px #000;
+    }
+
+    @media screen and (max-width: 768px){
+    justify-content: center;
+
+    .logo{
+        opacity: 1;
+    }    
     }
 `
 

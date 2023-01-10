@@ -4,11 +4,10 @@ export const Container = styled.main`
   min-height: 100vh;
   position: relative;
   margin: 0 auto;
-  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-bottom: 1rem;
   width: 100%;
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(111, 144, 244, 1) 0%, rgba(111, 144, 244, 0.25) 25%, rgba(111, 144, 244, .5) 50%, rgba(111, 144, 244, 0.25) 75%, rgba(111, 144, 244, 1) 100%);
@@ -54,6 +53,10 @@ export const Container = styled.main`
     cursor: pointer;
     color: #fff;
     background-color: #404040;
+    transition: all 350ms;
+    &:hover{
+      background: rgba(30,30,30, .75)
+    }
   }
   .icon{
     height: 100%;
@@ -84,7 +87,7 @@ export const Container = styled.main`
     color: #fff;
   }
   .weather-icon{
-    width: 60px;
+    width: 42px;
     object-fit: contain;
   }
   

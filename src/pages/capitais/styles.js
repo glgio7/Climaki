@@ -4,11 +4,10 @@ export const Container = styled.main`
   min-height: 100vh;
   position: relative;
   margin: 0 auto;
-  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   background: rgb(0,0,0);
   background: linear-gradient(0deg, rgba(111, 144, 244, 1) 0%, rgba(111, 144, 244, 0.25) 25%, rgba(111, 144, 244, .5) 50%, rgba(111, 144, 244, 0.25) 75%, rgba(111, 144, 244, 1) 100%);
