@@ -63,7 +63,7 @@ function Home() {
       <Subtitle />
       <Container>
         <div className="search-bar">
-          <input type='text' placeholder="Pesquisar cidade" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => searchOnEnter(e)} />
+          <input type='search' placeholder="Pesquisar cidade" autoComplete="on" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => searchOnEnter(e)} />
           <button className="search-button" onClick={() => { setCustomLocation(input); }}>
             <RiSearchLine className="icon" />
           </button>
