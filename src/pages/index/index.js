@@ -11,7 +11,6 @@ function Home() {
   const [input, setInput] = useState('');
   const [customLocation, setCustomLocation] = useState('');
   const [weather, setWeather] = useState([]);
-  const clearLocation = () => setCustomLocation('');
   const searchOnEnter = props => props.keyCode === 13 ? setCustomLocation(input) + setInput('') : '';
 
   /////////////////////////////
@@ -59,15 +58,9 @@ function Home() {
   }, [customLocation])
   return (
     <>
-      <Header clearLocation={clearLocation} />
+      <Header searchOnEnter={searchOnEnter} setInput={setInput} setCustomLocation={setCustomLocation} input={input}/>
       <Subtitle />
       <Container>
-        <div className="search-bar">
-          <input type='search' placeholder="Pesquisar cidade" autoComplete="on" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => searchOnEnter(e)} />
-          <button className="search-button" onClick={() => { setCustomLocation(input); }}>
-            <RiSearchLine className="icon" />
-          </button>
-        </div>
         {customLocation ?
           <>
             <h1>{weather.city}</h1>
@@ -134,7 +127,7 @@ function Home() {
                   </ul>
                 ))}
               </div>
-            </> : <ListItems />}
+            </> : <ListItems setCustomLocation={setCustomLocation}/>}
         </>
       </Container>
     </>

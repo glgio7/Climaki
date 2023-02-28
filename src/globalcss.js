@@ -5,7 +5,7 @@ export const GlobalCSS = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     list-style: none;
     border: none;
     outline: none;

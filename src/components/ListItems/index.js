@@ -18,6 +18,7 @@ width: 60%;
 
 const Item = styled.li`
   display: inline-flex;
+  cursor: pointer;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -81,7 +82,7 @@ p{
 }
 `
 
-export function ListItems() {
+export function ListItems( { setCustomLocation }) {
   const api_key = '7b9f700d5f985dd21792000657bd66d0';
   const [weather, setWeather] = useState([]);
   const citiesCode = "3452925,3463237,3464975,3448439,3451190,3405825,3444924,3465038,3467745,3462377,3471872,3390760,3397277,3394023,6320062,3386496,3388368,3474574,3405870,3663517";
@@ -100,8 +101,8 @@ export function ListItems() {
   <List>
     {weather.map(
       (item) => (
-        <Link  key={item.id} to={`/capitais/${item.id}`}>
-          <Item key={item.id}>
+        // <Link  key={item.id} to={`/capitais/${item.id}`}>
+          <Item key={item.id} onClick={() => {setCustomLocation(item.name); document.title = `${item.name} - Climaki Weather Forecast`}}>
             <h4>{item.name}</h4>
             <img className="weather-icon" src={`http://openweathermap.org/img/w/${item.weather[0].icon}.png`} alt="Weather Icon" />
             <span>
@@ -109,7 +110,7 @@ export function ListItems() {
               <p>Max: {Math.ceil(item.main.temp_max)}° C</p>
             </span>
           </Item>
-        </Link>
+        // </Link>
       )
     )
     }

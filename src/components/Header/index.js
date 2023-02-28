@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom"
-import styled from "styled-components"
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { RiSearchLine } from "react-icons/ri";
+import { useRef } from "react";
 
 const StyledHeader = styled.header`
-    background-color: rgb(30,100,230);
+    background-color: rgba(60,70,70, 1);
     width: 100%;
-    height: 72px;
+    height: 54px;
     display: flex;
     padding: 0 2rem;
     position: relative;
@@ -25,6 +27,7 @@ const StyledHeader = styled.header`
     h1{
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
     
     img{
@@ -35,7 +38,7 @@ const StyledHeader = styled.header`
     
     .logo{
         object-fit: contain;
-        width: 66px;
+        width: 50px;
         opacity: .75;
         transition: all 250ms;
         &:hover{
@@ -47,7 +50,7 @@ const StyledHeader = styled.header`
         color: #fff;
         margin: 0 .5rem;
         font-weight: bold;
-        font-size: 2rem;
+        font-size: 1.75rem;
         text-shadow: 0px 3px 5px #000;
     }
 
@@ -60,15 +63,23 @@ const StyledHeader = styled.header`
     }
 `
 
-export default function Header({ clearLocation }) {
+export default function Header({ searchOnEnter, setInput, setCustomLocation, input }) {
+
+    const inputRef = useRef()
+
     return (
         <StyledHeader>
-            <div className="background-header"><img src="../assets/unsplash3.png" alt="" /></div>
-            <Link to="/" onClick={clearLocation}>
-                <h1>
-                    <img src="../../../assets/forecast_logo.png" alt="Weather Forecast" className="logo" />
+            {/* <div className="background-header"><img src="../assets/unsplash3.png" alt="" /></div> */}
+                <h1 onClick={() => { setCustomLocation('');}}>
+                    <img src="../../../assets/logo-climaki.png" alt="Climaki - Weather Forecast" className="logo"/>
                     <p>CLIMAKI</p>
-                </h1></Link>
+                </h1>
+            <div className="search-bar">
+                <input type='search' placeholder="Pesquisar cidade" autoComplete="on" onKeyDown={searchOnEnter} onChange={(e) => setInput(e.target.value)} useRef={inputRef}/>
+                <button className="search-button" onClick={() => { setCustomLocation(input);}}>
+                    <RiSearchLine className="icon" />
+                </button>
+            </div>
         </StyledHeader>
     )
 }
