@@ -27,47 +27,10 @@ export const Container = styled.main`
     width: 100%;
   }
 
-  .page-title{
-    margin-block: 1rem;
-  }
-
-  ///////////////////////// begin of searchbar styles
-  .search-bar{
-    width: 60%;
-    display: flex;
-    align-items: center;
-  }
-  input{
-    border-radius: 10px 0 0 10px;
-    background-color: #ddd;
-    padding: 0 1rem;
-    font-size: 1rem;
-    width: 90%;
-    height: 36px;
-    
-  }
-  .search-button{
-    border-radius: 0 10px 10px 0;
-    width: 10%;
-    height: 36px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #404040;
-    transition: all 350ms;
-    &:hover{
-      background: rgba(30,30,30, .75)
-    }
-  }
-  .icon{
-    height: 100%;
-    font-size: 1.5rem;
-  }
-  ///////////////////////// end of searchbar styles
-
-
   h1{
     color: #fff;
     font-size: 1.5rem;
+    margin-block: 1rem;
     text-shadow: 0px 5px 5px #000;
   }
   

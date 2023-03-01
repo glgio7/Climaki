@@ -1,9 +1,8 @@
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import { RiSearchLine, RiArrowDownSLine, RiArrowUpLine } from "react-icons/ri";
+import { RiArrowDownSLine, RiArrowUpLine } from "react-icons/ri";
 import { ListItems } from "../../components/ListItems";
 import { Container } from "./styles";
-import Subtitle from "../../components/Subtitle";
 
 
 function Home() {
@@ -59,7 +58,6 @@ function Home() {
   return (
     <>
       <Header searchOnEnter={searchOnEnter} setInput={setInput} setCustomLocation={setCustomLocation} input={input}/>
-      <Subtitle />
       <Container>
         {customLocation ?
           <>

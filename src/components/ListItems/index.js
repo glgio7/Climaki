@@ -47,6 +47,7 @@ h4{
   font-size: 1rem;
   text-align: left;
   width: 30%;
+  color: #fff;
 }
   
 span{
