@@ -24,9 +24,11 @@ body{
     max-width: 100vw;
     height: 100%;
     
-    background-color: rgba(20,20,20, .5);
+    background-image: url('/assets/body-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     
     
 }
     a{color: #fff;}
-`
+`;
