@@ -83,6 +83,8 @@ export const Item = styled.li`
 		display: inline-block;
 
 		border-left: #000 3px solid;
+
+		width: 35%;
 	}
 
 	@media screen and (max-width: 900px) {

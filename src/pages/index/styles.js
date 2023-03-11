@@ -18,6 +18,7 @@ export const Container = styled.main`
 	p:first-letter,
 	h2:first-letter,
 	h3:first-letter,
+	h4:first-letter,
 	h5:first-letter {
 		text-transform: uppercase;
 	}
@@ -25,7 +26,7 @@ export const Container = styled.main`
 
 	/* Out of Container */
 	h1,
-	span {
+	.country-span {
 		color: #fff;
 		background-color: rgba(0, 100, 175, 1);
 		width: 80%;
@@ -40,10 +41,10 @@ export const Container = styled.main`
 		margin-top: 2rem;
 	}
 
-	span {
+	.country-span {
 		text-shadow: none;
 		font-weight: bold;
-		background-color: rgba(250, 230, 210);
+		background-color: rgba(250, 240, 230);
 		color: #000;
 		border-radius: 00 10px 10px;
 		font-size: 1.5rem;
@@ -156,13 +157,13 @@ export const Container = styled.main`
 		}
 	}
 
-	.weekly-container {
+	.weekly-list {
 		overflow-y: auto;
 		position: absolute;
 		top: 0;
 		height: 100%;
 		transition: all 500ms;
-		background-color: rgba(0, 0, 0, 1);
+		background-color: rgba(50, 50, 50);
 		border-radius: 10px;
 		margin: 0 auto;
 		text-align: center;
@@ -173,36 +174,82 @@ export const Container = styled.main`
 		opacity: 0;
 	}
 
-	.weekly-container.active {
+	.weekly-list.active {
 		opacity: 1;
 		pointer-events: all;
 	}
 
-	.weekly-list {
-		display: inline-flex;
-		padding: 1rem 0;
-		align-items: center;
-		justify-content: space-evenly;
+	.weekly-item {
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: center;
+		padding: 0;
+		align-items: flex-start;
+		border-bottom: 0;
+	}
+
+	.weekly-item__header {
+		justify-content: space-between;
+		padding-right: 10%;
 		width: 100%;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-	}
-
-	.weekly-list li {
-		width: 20%;
-	}
-
-	.weekly-list h3 {
-		font-size: 1rem;
+		height: 42px;
 		display: flex;
-		flex-direction: column;
+		color: #000;
+		background-color: rgba(0, 100, 175, 1);
 		align-items: center;
-		color: rgba(0, 110, 230, 1);
+
+		h5 {
+			display: inline-flex;
+			align-items: center;
+			background-color: #fff;
+			border-radius: 0 6px 6px 0;
+			justify-content: space-around;
+
+			font-size: 1rem;
+
+			width: 40%;
+			height: 60%;
+		}
+
+		img {
+			width: 36px;
+			height: 36px;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 50%;
+			padding: 6px;
+		}
+
+		h4 {
+			width: 40%;
+			color: #fff;
+			text-align: center;
+			font-size: 0.75rem;
+		}
+
+		span {
+			display: block;
+		}
 	}
 
-	.weekly-list img {
-		margin-left: 6px;
-		width: 36px;
-		object-fit: contain;
+	.weekly-item__body {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		div {
+			width: 50%;
+
+			padding: 0.25rem;
+			margin-bottom: 0.5rem;
+
+			border-radius: 6px;
+
+			color: #000;
+			background-color: #fff;
+			&:first-child {
+				border-radius: 0 0 6px 6px;
+			}
+		}
 	}
 
 	@media screen and (max-width: 900px) {
@@ -213,37 +260,24 @@ export const Container = styled.main`
 			border-radius: 0 12px 0 0;
 		}
 
+		.nav-button {
+			font-size: 2rem;
+		}
+
 		h1 {
 			width: 80%;
 		}
 
-		.weekly-list {
-			flex-wrap: wrap;
-			flex-direction: row;
-			justify-content: center;
-			padding: 0;
-			align-items: flex-start;
-			border-bottom: 0;
-		}
-		.weekly-list li {
-			width: 33%;
-			margin-top: 1rem;
-		}
+		.weekly-item__body div {
+			width: 75%;
 
-		.weekly-list h3 {
-			flex-direction: row;
-			align-items: center;
-		}
+			padding: 0.25rem;
+			margin-bottom: 0.5rem;
 
-		.weekly-list li:nth-child(1),
-		.weekly-list li:nth-child(2) {
-			padding: 0 0.5rem;
-			margin-block: 1px;
-			background-color: rgba(0, 0, 0, 0.5);
-			display: inline-flex;
-			align-items: center;
-			justify-content: space-between;
-			width: 100%;
+			border-radius: 6px;
+
+			color: #000;
+			background-color: #fff;
 		}
 	}
 `;

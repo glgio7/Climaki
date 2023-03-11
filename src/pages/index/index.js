@@ -1,33 +1,28 @@
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { RiArrowUpCircleFill, RiCloseCircleFill } from "react-icons/ri";
-import { List } from "../../components/ListI";
+import { List } from "../../components/List";
 import { Container } from "./styles";
 
 function Home() {
-	const api_key = "7b9f700d5f985dd21792000657bd66d0";
+	const api_key = process.env.REACT_APP_API_KEY;
+
+	///// User custom location needed states
 	const [input, setInput] = useState("");
 	const [customLocation, setCustomLocation] = useState("");
 	const [weather, setWeather] = useState([]);
+
+	///// Forecast needed states
+	const [forecast, setForecast] = useState([]);
+	const [expandWeekly, setExpandWeekly] = useState(false);
+	const daysNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+	///// For user experience
 	const searchOnEnter = (props) =>
 		props.keyCode === 13 ? setCustomLocation(input) + setInput("") : "";
 
-	/////////////////////////////
-	const [forecast, setForecast] = useState([]);
-	const [expandWeekly, setExpandWeekly] = useState(false);
-	const daysNames = [
-		"Domingo",
-		"Segunda",
-		"Terça",
-		"Quarta",
-		"Quinta",
-		"Sexta",
-		"Sábado",
-	];
-	////////////////////////////
-
 	useEffect(() => {
-		// CURRENT WEATHER
+		////// Get current weather
 		const fetchWeather = () => {
 			fetch(
 				`https://api.openweathermap.org/data/2.5/weather?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`
@@ -38,9 +33,13 @@ function Home() {
 						city: data?.name,
 						country: data.sys?.country,
 						sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
-						sunriseMinutes: new Date(data.sys?.sunrise * 1000).getMinutes(),
+						sunriseMinutes: JSON.stringify(
+							new Date(data.sys?.sunrise * 1000).getMinutes()
+						),
 						sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
-						sunsetMinutes: new Date(data.sys?.sunset * 1000).getMinutes(),
+						sunsetMinutes: JSON.stringify(
+							new Date(data.sys?.sunset * 1000).getMinutes()
+						),
 						temp: Math.round(data.main?.temp),
 						feels_like: Math.round(data.main?.feels_like),
 						status: data.weather ? data.weather[0].main : "",
@@ -51,6 +50,8 @@ function Home() {
 					setWeather(weather);
 				});
 		};
+
+		///// Get weather forecast for 5 days / for each 3 hours
 		const fetchForecast = () => {
 			fetch(
 				`https://api.openweathermap.org/data/2.5/forecast?q=${customLocation}&appid=${api_key}&units=metric&lang=pt_br`
@@ -65,6 +66,17 @@ function Home() {
 		Promise.all([fetchWeather(), fetchForecast()]);
 	}, [customLocation]);
 
+	///// Fill empty space when minutes are smaller than 2 digits
+
+	if (weather.sunriseMinutes && weather.sunriseMinutes.length === 1) {
+		weather.sunriseMinutes = "0" + weather.sunriseMinutes;
+	}
+	if (weather.sunsetMinutes && weather.sunsetMinutes.length === 1) {
+		weather.sunsetMinutes = "0" + weather.sunsetMinutes;
+	}
+
+	///// return
+
 	return (
 		<>
 			<Header
@@ -75,10 +87,12 @@ function Home() {
 				input={input}
 			/>
 			<Container>
-				{customLocation ? (
+				{!customLocation ? (
+					<h1>Principais cidades</h1>
+				) : (
 					<>
 						<h1>{weather.city}</h1>
-						<span>{weather.country}</span>
+						<span className="country-span">{weather.country}</span>
 						<nav className={expandWeekly ? "active" : ""}>
 							<RiArrowUpCircleFill
 								className="nav-button"
@@ -93,11 +107,11 @@ function Home() {
 							/>
 						</nav>
 					</>
-				) : (
-					<h1>Principais cidades</h1>
 				)}
 				<>
-					{customLocation ? (
+					{!customLocation ? (
+						<List setCustomLocation={setCustomLocation} />
+					) : (
 						<>
 							<div className="container">
 								<h2>Agora</h2>
@@ -128,48 +142,47 @@ function Home() {
 								</button>
 								<div
 									className={
-										expandWeekly
-											? "weekly-container active"
-											: "weekly-container"
+										expandWeekly ? "weekly-list active" : "weekly-list"
 									}
 								>
 									{expandWeekly === true &&
 										forecast.map((item) => (
-											<ul className="weekly-list" key={forecast.indexOf(item)}>
-												<li>
-													<h3>
-														{daysNames[new Date(item.dt * 1000).getDay()]}
-														<img
-															src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`}
-															alt={weather.status}
-														/>
-													</h3>
-
-													<h3>{`${new Date(item.dt * 1000).getHours()}:00`}</h3>
-												</li>
-												<li>
-													<h5>{item.weather[0].description}</h5>
-													<p>{item.rain ? `${item.rain["3h"]} mm` : ""}</p>
-												</li>
-												<li>
-													<h5>Mínima</h5>
-													<p>{`${Math.floor(item.main.temp_min)}° C`}</p>
-												</li>
-												<li>
-													<h5>Sensação térmica</h5>
-													<p>{`${Math.round(item.main.feels_like)}° C`}</p>
-												</li>
-												<li>
-													<h5>Máxima</h5>
-													<p>{`${Math.ceil(item.main.temp_max)}° C`}</p>
-												</li>
-											</ul>
+											<div className="weekly-item" key={forecast.indexOf(item)}>
+												<div className="weekly-item__header">
+													<h5>
+														<span>
+															{daysNames[new Date(item.dt * 1000).getDay()]}
+														</span>
+														{`${new Date(item.dt * 1000).getHours()}:00`}
+													</h5>
+													<h4>
+														{item.weather[0].description}
+														<span>{item.rain && `${item.rain["3h"]} mm`}</span>
+													</h4>
+													<img
+														src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`}
+														alt={weather.status}
+													/>
+												</div>
+												<div className="weekly-item__body">
+													<div>
+														<h5>Mínima</h5>
+														<p>{`${Math.floor(item.main.temp_min)}° C`}</p>
+													</div>
+													<div>
+														<h5>Sensação térmica</h5>
+														<p>{`${Math.round(item.main.feels_like)}° C`}</p>
+													</div>
+													<div>
+														<h5>Máxima</h5>
+														<p>{`${Math.ceil(item.main.temp_max)}° C`}</p>
+													</div>
+												</div>
+											</div>
 										))}
 								</div>
 							</div>
 						</>
-					) : (
-						<List setCustomLocation={setCustomLocation} />
 					)}
 				</>
 			</Container>
