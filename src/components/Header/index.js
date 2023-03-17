@@ -8,7 +8,6 @@ export default function Header({
 	setInput,
 	setCustomLocation,
 	input,
-	customLocation,
 }) {
 	const inputRef = useRef();
 
@@ -18,7 +17,7 @@ export default function Header({
 				<h1
 					className="logo"
 					onClick={() => {
-						setCustomLocation(!customLocation);
+						setCustomLocation("");
 						document.title = "Climaki - Weather Forecast";
 					}}
 				>

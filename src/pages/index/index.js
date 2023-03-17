@@ -48,7 +48,8 @@ function Home() {
 						id: data.id,
 					};
 					setWeather(weather);
-				});
+				})
+				.catch((err) => console.log(err));
 		};
 
 		///// Get weather forecast for 5 days / for each 3 hours
@@ -61,7 +62,8 @@ function Home() {
 					// 5day WEATHER
 					const arr = data.list;
 					setForecast(arr);
-				});
+				})
+				.catch((err) => console.log(err));
 		};
 		Promise.all([fetchWeather(), fetchForecast()]);
 	}, [customLocation]);
