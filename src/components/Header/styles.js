@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.header`
-	background-color: rgba(60, 60, 70, 1);
+	background-image: url(/assets/banner-background.jpg);
+	background-position: bottom;
+	background-size: cover;
 
 	width: 100%;
 	height: 180px;
@@ -21,7 +23,9 @@ export const StyledHeader = styled.header`
 
 	.container-top {
 		width: 100%;
+		height: 50%;
 		display: flex;
+
 		align-items: center;
 
 		padding: 0 2rem;
@@ -51,7 +55,7 @@ export const StyledHeader = styled.header`
 		margin: 0 0.5rem;
 		font-weight: bold;
 		font-size: 1.75rem;
-		text-shadow: 0px 3px 5px #000;
+		text-shadow: -3px 2px 5px rgba(0, 160, 255, 0.75);
 	}
 
 	.search-bar {
@@ -85,13 +89,12 @@ export const StyledHeader = styled.header`
 
 	.container-banner {
 		width: 100%;
-		height: 100%;
-		background-image: url(/assets/banner-background.jpg);
-		background-position: center;
-		background-size: cover;
+		height: 50%;
+		/* background-image: url(/assets/banner-background.jpg); */
 		display: flex;
 		justify-content: space-around;
 		flex-wrap: wrap;
+		background-color: #252525;
 	}
 	.container-banner__item {
 		width: 30%;
@@ -104,7 +107,7 @@ export const StyledHeader = styled.header`
 	}
 
 	.banner__item__text {
-		color: #000;
+		color: #fff;
 		text-align: center;
 		font-weight: bold;
 	}
@@ -124,7 +127,7 @@ export const StyledHeader = styled.header`
 		height: auto;
 		.container-top {
 			flex-wrap: wrap;
-			padding-bottom: 1rem;
+			padding: 1rem;
 		}
 
 		.search-bar,
@@ -137,7 +140,7 @@ export const StyledHeader = styled.header`
 		}
 
 		.container-banner {
-			padding: 1rem;
+			padding: 0.5rem;
 		}
 
 		.container-banner__item {
@@ -145,6 +148,9 @@ export const StyledHeader = styled.header`
 			justify-content: space-evenly;
 			height: auto;
 			width: 100%;
+			&:first-child {
+				margin-top: -0.5rem;
+			}
 		}
 
 		.banner__item__text {
