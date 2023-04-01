@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RiArrowUpCircleFill, RiCloseCircleFill } from "react-icons/ri";
 import { List } from "../../components/List";
 import { Container } from "./styles";
+import { CityWeatherData, ForecastData } from "./types";
 
 function Home() {
 	const api_key = process.env.REACT_APP_API_KEY;
@@ -10,16 +11,22 @@ function Home() {
 	///// User custom location needed states
 	const [input, setInput] = useState("");
 	const [customLocation, setCustomLocation] = useState("");
-	const [weather, setWeather] = useState([]);
+	const [weather, setWeather] = useState<CityWeatherData>(
+		{} as CityWeatherData
+	);
 
 	///// Forecast needed states
-	const [forecast, setForecast] = useState([]);
+	const [forecast, setForecast] = useState<ForecastData[]>([]);
 	const [expandWeekly, setExpandWeekly] = useState(false);
 	const daysNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
 	///// For user experience
-	const searchOnEnter = (props) =>
-		props.keyCode === 13 ? setCustomLocation(input) + setInput("") : "";
+	const searchOnEnter = (props: React.KeyboardEvent<HTMLInputElement>) => {
+		if (props.key === "Enter") {
+			setCustomLocation(input);
+			setInput("");
+		}
+	};
 
 	useEffect(() => {
 		////// Get current weather
@@ -32,14 +39,16 @@ function Home() {
 					const weather = {
 						city: data?.name,
 						country: data.sys?.country,
-						sunriseHour: new Date(data.sys?.sunrise * 1000).getHours(),
+						sunriseHour: new Date(data.sys?.sunrise * 1000)
+							.getHours()
+							.toString(),
 						sunriseMinutes: JSON.stringify(
 							new Date(data.sys?.sunrise * 1000).getMinutes()
-						),
-						sunsetHour: new Date(data.sys?.sunset * 1000).getHours(),
+						).toString(),
+						sunsetHour: new Date(data.sys?.sunset * 1000).getHours().toString(),
 						sunsetMinutes: JSON.stringify(
 							new Date(data.sys?.sunset * 1000).getMinutes()
-						),
+						).toString(),
 						temp: Math.round(data.main?.temp),
 						feels_like: Math.round(data.main?.feels_like),
 						status: data.weather ? data.weather[0].main : "",
