@@ -55,7 +55,7 @@ export const StyledHeader = styled.header`
 		margin: 0 0.5rem;
 		font-weight: bold;
 		font-size: 1.75rem;
-		text-shadow: -3px 2px 5px rgba(0, 160, 255, 0.75);
+		text-shadow: -3px 2px 5px rgba(0, 100, 255, 0.75);
 	}
 
 	.search-bar {
@@ -95,6 +95,7 @@ export const StyledHeader = styled.header`
 		justify-content: space-around;
 		flex-wrap: wrap;
 		background-color: #252525;
+		padding: 0.5rem 0;
 	}
 	.container-banner__item {
 		width: 30%;
@@ -103,27 +104,30 @@ export const StyledHeader = styled.header`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
 	}
 
 	.banner__item__text {
 		color: #fff;
+		height: 50%;
+		font-size: 0.9rem;
 		text-align: center;
 		font-weight: bold;
 	}
 
 	.banner__item__image {
-		margin-top: 0.5rem;
-		color: #0066ee;
 		padding: 3px;
+
+		color: #0066ee;
 		background-color: #fff;
+
 		border-radius: 50%;
 
 		width: 36px;
 		height: 36px;
 	}
 
-	@media screen and (max-width: 768px) {
+	@media screen and (max-width: 900px) {
 		height: auto;
 		.container-top {
 			flex-wrap: wrap;
@@ -137,10 +141,6 @@ export const StyledHeader = styled.header`
 
 		.logo__image {
 			opacity: 1;
-		}
-
-		.container-banner {
-			padding: 0.5rem;
 		}
 
 		.container-banner__item {
@@ -158,11 +158,13 @@ export const StyledHeader = styled.header`
 			padding: 0.5rem;
 			border-radius: 9px;
 			margin-top: 0.5rem;
+			height: auto;
 			width: 80%;
 			background-color: rgba(255, 255, 255, 0.5);
 		}
 
 		.banner__item__image {
+			margin-top: 0.5rem;
 			width: 10%;
 			display: flex;
 			order: -1;
