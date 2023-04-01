@@ -1,18 +1,18 @@
-import { RiSearchLine } from "react-icons/ri";
 import { useRef } from "react";
-import { StyledHeader } from "./styles";
-import { TbClockHour1, TbCalendar, TbWorld } from "react-icons/tb";
+import { HeaderProps } from "./types";
+import * as S from "./styles";
+import { TbClockHour1, TbCalendar, TbWorld, TbSearch } from "react-icons/tb";
 
 export default function Header({
 	searchOnEnter,
 	setInput,
 	setCustomLocation,
 	input,
-}) {
-	const inputRef = useRef();
+}: HeaderProps) {
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	return (
-		<StyledHeader>
+		<S.HeaderContainer>
 			<div className="container-top">
 				<h1
 					className="logo"
@@ -45,7 +45,7 @@ export default function Header({
 							setCustomLocation(input);
 						}}
 					>
-						<RiSearchLine className="icon" />
+						<TbSearch className="icon" />
 					</button>
 				</div>
 			</div>
@@ -69,6 +69,6 @@ export default function Header({
 					<TbCalendar className="banner__item__image" />
 				</li>
 			</ul>
-		</StyledHeader>
+		</S.HeaderContainer>
 	);
 }

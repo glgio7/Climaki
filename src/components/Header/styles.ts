@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledHeader = styled.header`
+export const HeaderContainer = styled.header`
 	background-image: url(/assets/banner-background.jpg);
 	background-position: bottom;
 	background-size: cover;
