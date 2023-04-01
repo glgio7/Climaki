@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Item, ListContainer } from "./styles";
+import { ListProps, WeatherData } from "./types";
 
-export function List({ setCustomLocation }) {
+export function List({ setCustomLocation }: ListProps) {
 	const api_key = process.env.REACT_APP_API_KEY;
-	const [weather, setWeather] = useState([]);
+	const [weather, setWeather] = useState<WeatherData[]>([]);
 	const citiesCode =
 		"3452925,3463237,3464975,3448439,3451190,3405825,3444924,3465038,3467745,3462377,3471872,3390760,3397277,3394023,6320062,3386496,3388368,3474574,3405870,3663517";
 
@@ -18,6 +19,7 @@ export function List({ setCustomLocation }) {
 				setWeather(citiesList);
 			});
 	}, []);
+
 	return (
 		<>
 			<ListContainer>

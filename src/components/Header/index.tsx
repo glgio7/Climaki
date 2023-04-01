@@ -1,6 +1,6 @@
+import * as S from "./styles";
 import { useRef } from "react";
 import { HeaderProps } from "./types";
-import * as S from "./styles";
 import { TbClockHour1, TbCalendar, TbWorld, TbSearch } from "react-icons/tb";
 
 export default function Header({

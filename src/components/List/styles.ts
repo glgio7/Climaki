@@ -79,10 +79,9 @@ export const Item = styled.li`
 		color: #000;
 
 		font-weight: bold;
+		text-align: center;
 
 		display: inline-block;
-
-		border-left: #000 3px solid;
 
 		width: 35%;
 	}
