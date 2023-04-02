@@ -1,9 +1,9 @@
 import Header from "../../components/Header";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RiArrowUpCircleFill, RiCloseCircleFill } from "react-icons/ri";
 import { List } from "../../components/List";
 import { Container } from "./styles";
-import { CityWeatherData, ForecastData } from "./types";
+import { CityWeatherData, DayOfWeek, ForecastData } from "./types";
 
 function Home() {
 	const api_key = process.env.REACT_APP_API_KEY;
@@ -18,15 +18,17 @@ function Home() {
 	///// Forecast needed states
 	const [forecast, setForecast] = useState<ForecastData[]>([]);
 	const [expandWeekly, setExpandWeekly] = useState(false);
-	const daysNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
 	///// For user experience
-	const searchOnEnter = (props: React.KeyboardEvent<HTMLInputElement>) => {
-		if (props.key === "Enter") {
-			setCustomLocation(input);
-			setInput("");
-		}
-	};
+	const searchOnEnter = useCallback(
+		(props: React.KeyboardEvent<HTMLInputElement>) => {
+			if (props.key === "Enter") {
+				setCustomLocation(input);
+				setInput("");
+			}
+		},
+		[input]
+	);
 
 	useEffect(() => {
 		////// Get current weather
@@ -75,7 +77,7 @@ function Home() {
 				.catch((err) => console.log(err));
 		};
 		Promise.all([fetchWeather(), fetchForecast()]);
-	}, [customLocation]);
+	}, [customLocation, api_key]);
 
 	///// Fill empty space when minutes are smaller than 2 digits
 
@@ -162,7 +164,7 @@ function Home() {
 												<div className="weekly-item__header">
 													<h5>
 														<span>
-															{daysNames[new Date(item.dt * 1000).getDay()]}
+															{DayOfWeek[new Date(item.dt * 1000).getDay()]}
 														</span>
 														{`${new Date(item.dt * 1000).getHours()}:00`}
 													</h5>

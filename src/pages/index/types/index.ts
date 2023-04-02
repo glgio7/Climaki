@@ -19,3 +19,13 @@ export interface ForecastData {
 	main: { temp_min: number; feels_like: number; temp_max: number };
 	rain: { "3h": string };
 }
+
+export enum DayOfWeek {
+	Dom = 0,
+	Seg = 1,
+	Ter = 2,
+	Qua = 3,
+	Qui = 4,
+	Sex = 5,
+	Sáb = 6,
+}
