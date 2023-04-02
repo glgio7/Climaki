@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import { useCallback, useEffect, useState } from "react";
 import { RiArrowUpCircleFill, RiCloseCircleFill } from "react-icons/ri";
 import { List } from "../../components/List";
-import { Container } from "./styles";
+import * as S from "./styles";
 import { CityWeatherData, DayOfWeek, ForecastData } from "./types";
 
 function Home() {
@@ -16,7 +16,9 @@ function Home() {
 	);
 
 	///// Forecast needed states
-	const [forecast, setForecast] = useState<ForecastData[]>([]);
+	const [forecast, setForecast] = useState<ForecastData[]>(
+		[] as ForecastData[]
+	);
 	const [expandWeekly, setExpandWeekly] = useState(false);
 
 	///// For user experience
@@ -88,8 +90,6 @@ function Home() {
 		weather.sunsetMinutes = "0" + weather.sunsetMinutes;
 	}
 
-	///// return
-
 	return (
 		<>
 			<Header
@@ -99,7 +99,7 @@ function Home() {
 				customLocation={customLocation}
 				input={input}
 			/>
-			<Container>
+			<S.Container>
 				{!customLocation ? (
 					<h1>Principais cidades</h1>
 				) : (
@@ -198,7 +198,7 @@ function Home() {
 						</>
 					)}
 				</>
-			</Container>
+			</S.Container>
 		</>
 	);
 }

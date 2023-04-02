@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Item, ListContainer } from "./styles";
+import * as S from "./styles";
 import { ListProps, WeatherData } from "./types";
 
 export function List({ setCustomLocation }: ListProps) {
@@ -18,13 +18,13 @@ export function List({ setCustomLocation }: ListProps) {
 				const citiesList = data.list;
 				setWeather(citiesList);
 			});
-	}, []);
+	}, [api_key]);
 
 	return (
 		<>
-			<ListContainer>
+			<S.ListContainer>
 				{weather.map((item) => (
-					<Item
+					<S.Item
 						key={item.id}
 						onClick={() => {
 							setCustomLocation(item.name);
@@ -41,9 +41,9 @@ export function List({ setCustomLocation }: ListProps) {
 							<p>Min: {Math.floor(item.main.temp_min)}° C</p>
 							<p>Max: {Math.ceil(item.main.temp_max)}° C</p>
 						</div>
-					</Item>
+					</S.Item>
 				))}
-			</ListContainer>
+			</S.ListContainer>
 		</>
 	);
 }
