@@ -18,13 +18,16 @@ export const GlobalCSS = createGlobalStyle`
     scroll-behavior: smooth;
 }
 
-body{
-    overflow-x: hidden;
+img{
+    width: 100%;
+}
 
-    max-width: 100vw;
+body{
+    width: 100%;
     height: 100%;
     
-    background-image: url('/assets/body-background.jpg');
+    
+	background-image: url("/assets/wallpaper.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     

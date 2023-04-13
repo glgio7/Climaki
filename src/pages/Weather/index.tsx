@@ -5,7 +5,7 @@ import { List } from "../../components/List";
 import * as S from "./styles";
 import { CityWeatherData, DayOfWeek, ForecastData } from "./types";
 
-function Home() {
+function Weather() {
 	const api_key = process.env.REACT_APP_API_KEY;
 
 	///// User custom location needed states
@@ -203,4 +203,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default Weather;
